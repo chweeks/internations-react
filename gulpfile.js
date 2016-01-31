@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var source = require('vinyl-source-stream'); // Used to stream bundle for further handling
 var browserify = require('browserify');
 var watchify = require('watchify');
-var babelify = require('babelify'); 
+var babelify = require('babelify');
 var gulpif = require('gulp-if');
 var uglify = require('gulp-uglify');
 var streamify = require('gulp-streamify');
@@ -13,7 +13,6 @@ var gutil = require('gulp-util');
 var shell = require('gulp-shell');
 var glob = require('glob');
 var livereload = require('gulp-livereload');
-var jasminePhantomJs = require('gulp-jasmine2-phantomjs');
 
 // External dependencies you do not want to rebundle while developing,
 // but include in your application deployment
@@ -60,41 +59,14 @@ var browserifyTask = function (options) {
     appBundler = watchify(appBundler);
     appBundler.on('update', rebundle);
   }
-      
+
   rebundle();
 
   // We create a separate bundle for our dependencies as they
   // should not rebundle on file changes. This only happens when
-  // we develop. When deploying the dependencies will be included 
+  // we develop. When deploying the dependencies will be included
   // in the application bundle
   if (options.development) {
-
-  	var testFiles = glob.sync('./specs/**/*-spec.js');
-		var testBundler = browserify({
-			entries: testFiles,
-			debug: true, // Gives us sourcemapping
-			transform: [babelify],
-			cache: {}, packageCache: {}, fullPaths: true // Requirement of watchify
-		});
-
-    testBundler.external(dependencies);
-
-  	var rebundleTests = function () {
-  		var start = Date.now();
-  		console.log('Building TEST bundle');
-  		testBundler.bundle()
-      .on('error', gutil.log)
-	      .pipe(source('specs.js'))
-	      .pipe(gulp.dest(options.dest))
-	      .pipe(livereload())
-	      .pipe(notify(function () {
-	        console.log('TEST bundle built in ' + (Date.now() - start) + 'ms');
-	      }));
-  	};
-
-    testBundler = watchify(testBundler);
-    testBundler.on('update', rebundleTests);
-    rebundleTests();
 
     // Remove react-addons when deploying, as it is only for
     // testing
@@ -106,7 +78,7 @@ var browserifyTask = function (options) {
       debug: true,
       require: dependencies
     });
-    
+
     // Run the vendor bundle
     var start = new Date();
     console.log('Building VENDORS bundle');
@@ -118,9 +90,9 @@ var browserifyTask = function (options) {
       .pipe(notify(function () {
         console.log('VENDORS bundle built in ' + (Date.now() - start) + 'ms');
       }));
-    
+
   }
-  
+
 }
 
 var cssTask = function (options) {
@@ -142,7 +114,7 @@ var cssTask = function (options) {
       gulp.src(options.src)
         .pipe(concat('main.css'))
         .pipe(cssmin())
-        .pipe(gulp.dest(options.dest));   
+        .pipe(gulp.dest(options.dest));
     }
 }
 
@@ -154,7 +126,7 @@ gulp.task('default', function () {
     src: './app/main.js',
     dest: './build'
   });
-  
+
   cssTask({
     development: true,
     src: './styles/**/*.css',
@@ -170,7 +142,7 @@ gulp.task('deploy', function () {
     src: './app/main.js',
     dest: './dist'
   });
-  
+
   cssTask({
     development: false,
     src: './styles/**/*.css',
