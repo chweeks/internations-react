@@ -9,6 +9,12 @@ var App = React.createClass({
     };
   },
 
+  renderUsers: function(user) {
+    return (
+      <div>{user}</div>
+    );
+  },
+
 	render: function() {
     return(
       <div>
@@ -16,7 +22,7 @@ var App = React.createClass({
         <form>
           <input type="text" placeholder="User Name" />
         </form>
-        {this.state.users}
+        {this.state.users.map(this.renderUsers)}
       </div>
     );
 	}
