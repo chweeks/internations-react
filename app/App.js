@@ -3,6 +3,12 @@ var Store = require('./Store.js');
 var actions = require('./actions.js');
 
 var App = React.createClass({
+  getInitialState: function() {
+    return {
+      users: Store.getUsers()
+    };
+  },
+
 	render: function() {
     return(
       <div>
@@ -10,6 +16,7 @@ var App = React.createClass({
         <form>
           <input type="text" placeholder="User Name" />
         </form>
+        {this.state.users}
       </div>
     );
 	}
