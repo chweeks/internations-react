@@ -11,7 +11,7 @@ var App = React.createClass({
 
   renderUsers: function(user) {
     return (
-      <div>{user}</div>
+      <div key={user.id}>{user.name}</div>
     );
   },
 

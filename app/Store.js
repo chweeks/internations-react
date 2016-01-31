@@ -2,7 +2,7 @@ var flux = require('flux-react');
 var actions = require('./actions.js');
 
 module.exports = flux.createStore({
-  users: ['Chris', 'Harry', 'Weeks'],
+  users: [{id: 1, name:'Chris'}, {id: 2, name:'Harry'}, {id: 3, name:'Weeks'}],
   groups: [],
   actions: [
     actions.addUser,
