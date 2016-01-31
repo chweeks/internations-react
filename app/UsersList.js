@@ -6,6 +6,7 @@ var UsersList = React.createClass({
   getInitialState: function() {
     return {
       users: Store.getUsers(),
+      groups: Store.getGroups(),
       newUser: ""
     };
   },
@@ -20,7 +21,8 @@ var UsersList = React.createClass({
 
   changeState: function() {
     this.setState({
-      users: Store.getUsers()
+      users: Store.getUsers(),
+      groups: Store.getGroups()
     });
   },
 
@@ -39,9 +41,17 @@ var UsersList = React.createClass({
     })
   },
 
+  renderGroupDropDown: function(group) {
+    return(
+      <option key={group.id} value={group.name}>{group.name}</option>
+    );
+  },
+
   renderUsers: function(user) {
-    return (
-      <div key={user.id}>{user.name}</div>
+    return(
+      <div key={user.id}>
+        {user.name}
+      </div>
     );
   },
 
@@ -52,6 +62,9 @@ var UsersList = React.createClass({
         <form onSubmit={this.addUser}>
           <input type="text" ref="newUser" placeholder="User Name"
             value={this.state.newUser} onChange={this.updateNewUser}/>
+          <select name='groups' defaultValue='InterNations'>
+            {this.state.groups.map(this.renderGroupDropDown)}
+          </select>
         </form>
         {this.state.users.map(this.renderUsers)}
       </div>

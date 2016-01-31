@@ -6,6 +6,7 @@ var GroupsList = React.createClass({
   getInitialState: function() {
     return {
       groups: Store.getGroups(),
+      users: Store.getUsers(),
       newGroup: ""
     };
   },
@@ -20,7 +21,8 @@ var GroupsList = React.createClass({
 
   changeState: function() {
     this.setState({
-      groups: Store.getGroups()
+      groups: Store.getGroups(),
+      users: Store.getUsers()
     });
   },
 
@@ -39,9 +41,20 @@ var GroupsList = React.createClass({
     })
   },
 
+  renderUserDropDown: function(user) {
+    return(
+      <option key={user.id} value={user.name}>{user.name}</option>
+    );
+  },
+
   renderGroups: function(group) {
     return (
-      <div key={group.id}>{group.name}</div>
+      <div key={group.id}>
+        <span>{group.name}</span>
+        <select name='users'>
+          {this.state.users.map(this.renderUserDropDown)}
+        </select>
+      </div>
     );
   },
 

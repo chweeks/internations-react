@@ -2,7 +2,7 @@ var flux = require('flux-react');
 
 module.exports = flux.createActions([
   'addUser',
-  'addGroup'
+  'addGroup',
   'addUserToGroup',
   'addGroupToUser'
 ]);

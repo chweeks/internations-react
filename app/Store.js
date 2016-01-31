@@ -3,7 +3,7 @@ var actions = require('./actions.js');
 
 module.exports = flux.createStore({
   users: [{id: 1, name:'Chris', groups: [] }],
-  groups: [],
+  groups: [{id: 1, name: 'InterNations', members: []}],
   actions: [
     actions.addUser,
     actions.addGroup,
