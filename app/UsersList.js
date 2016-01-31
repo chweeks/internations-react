@@ -50,7 +50,8 @@ var UsersList = React.createClass({
       <div>
         <h1>Add New User</h1>
         <form onSubmit={this.addUser}>
-          <input type="text" ref="newUser" placeholder="User Name" value={this.state.newUser} onChange={this.updateNewUser}/>
+          <input type="text" ref="newUser" placeholder="User Name"
+            value={this.state.newUser} onChange={this.updateNewUser}/>
         </form>
         {this.state.users.map(this.renderUsers)}
       </div>

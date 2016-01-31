@@ -50,7 +50,8 @@ var GroupsList = React.createClass({
       <div>
         <h1>Add New Group</h1>
         <form onSubmit={this.addGroup}>
-          <input type="text" ref="newGroup" placeholder="Group Name" value={this.state.newGroup} onChange={this.updateNewGroup}/>
+          <input type="text" ref="newGroup" placeholder="Group Name"
+            value={this.state.newGroup} onChange={this.updateNewGroup}/>
         </form>
         {this.state.groups.map(this.renderGroups)}
       </div>
