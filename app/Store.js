@@ -9,7 +9,7 @@ module.exports = flux.createStore({
     actions.addGroup
   ],
   addUser: function(user) {
-    this.users.push(user);
+    this.users.push({ id:(this.users.length+1), name:user });
     this.emitChange();
   },
   addGroup: function(group) {
