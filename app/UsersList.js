@@ -34,8 +34,9 @@ var UsersList = React.createClass({
 
   addUser: function(event) {
     event.preventDefault();
-    var input = this.refs.newUser;
-    actions.addUser(input.value);
+    var userName = this.refs.newUser.value;
+    var selectedGroup = this.refs.selectedGroup.value;
+    actions.addUser(userName, selectedGroup);
     this.setState({
       newUser: ''
     })
@@ -50,7 +51,7 @@ var UsersList = React.createClass({
   renderUsers: function(user) {
     return(
       <div key={user.id}>
-        {user.name}
+        {user.name}:{user.groups}
       </div>
     );
   },
@@ -62,7 +63,8 @@ var UsersList = React.createClass({
         <form onSubmit={this.addUser}>
           <input type="text" ref="newUser" placeholder="User Name"
             value={this.state.newUser} onChange={this.updateNewUser}/>
-          <select name='groups' defaultValue='InterNations'>
+          <select name='groups' ref="selectedGroup" defaultValue="">
+            <option value="">Please select a group...</option>
             {this.state.groups.map(this.renderGroupDropDown)}
           </select>
         </form>

@@ -7,25 +7,32 @@ module.exports = flux.createStore({
   actions: [
     actions.addUser,
     actions.addGroup,
-    actions.addUserToGroup,
-    actions.addGroupToUser
   ],
-  addUser: function(user) {
-    this.users.push({ id:(this.users.length+1), name: user });
-    this.emitChange();
+
+  getGroupByName: function(name){
+     for(var i=0; i < this.groups.length; i++){
+       if(this.groups[i].name == name){
+         return this.groups[i]
+       }
+     };
   },
+
+  addUser: function(userName, group) {
+    if(group) {
+      this.users.push({ id:(this.users.length+1), name: userName, groups: group});
+      this.getGroupByName(group).members.push(userName);
+      this.emitChange();
+    }
+    else {
+      alert('User must belong to a group')
+    };
+  },
+
   addGroup: function(group) {
     this.groups.push({ id:(this.groups.length+1), name: group , members: []});
     this.emitChange();
   },
-  addUserToGroup: function(user, group) {
-    this.group.members.push(user);
-    this.emitChange();
-  },
-  addGroupToUser: function(group, user) {
-    this.user.groups.push(group);
-    this.emitChange();
-  },
+
   exports: {
     getUsers: function() {
       return this.users;

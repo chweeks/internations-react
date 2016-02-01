@@ -50,10 +50,7 @@ var GroupsList = React.createClass({
   renderGroups: function(group) {
     return (
       <div key={group.id}>
-        <span>{group.name}</span>
-        <select name='users'>
-          {this.state.users.map(this.renderUserDropDown)}
-        </select>
+        <span>{group.name}: {group.members}</span>
       </div>
     );
   },
