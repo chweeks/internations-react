@@ -1,21 +1,129 @@
-body {
-	background-color: #EAEAEA;
+html {
+	height: 100%;
 }
 
-.form {
-  margin-left: 2%;
+body {
+	font-family: 'Raleway', sans-serif;
+	background-color: #EAEAEA;
+	height: 100%;
+	background-image: url("/images/londonSkyline.png");
+	background-size: 100%;
+}
+
+header {
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+header img {
+  height: 60px;
+  width: 20%
+}
+
+select {
+	color: white;
+  border: 1px solid white;
+  background: transparent;
+	height: 30px;
+	border-radius: 5px;
+}
+
+input {
+	height: 30px;
+	border-radius: 5px
+}
+
+.container {
+	height: 100%;
+}
+
+#content {
+	height: 100%;
+	width: 100%;
+}
+
+.groupList {
+	height: 40%;
+	width: 50%;
+	vertical-align: top;
+	display: inline-block;
+}
+
+.userList {
+	height: 40%;
+	width: 50%;
+	vertical-align: top;
+  display: inline-block;
+}
+
+.usersContainer {
+	text-align: center;
+	height: 100%;
 }
 
 .userContainer {
+	width: 25%;
+	height: auto;
 	margin: 2%;
+	border-radius: 5px;
+	text-align: center;
   display: inline-block;
 	vertical-align: top;
 	background-color: white;
 }
 
-.groupContainer{
+.groupsContainer {
+	text-align: center;
+	height: 100%;
+}
+
+.groupContainer {
+	height: auto;
+	width: 25%;
 	margin: 2%;
-  display: inline-block;
+	border-radius: 5px;
+	display: inline-block;
+	text-align: center;
 	vertical-align: top;
 	background-color: white;
+}
+
+.addUserBtn {
+	color: white;
+	background-color: #00B300;
+	border-radius: 5px;
+	margin-top: 1%;
+	margin-right: 1%;
+  height: 30px;
+}
+
+.removeUserBtn {
+	color: white;
+	border-radius: 5px;
+	margin-top: 1%;
+	height: 30px;
+	background-color: #E41B17;
+}
+
+select > option {
+	color: black;
+}
+
+.delete {
+	color: white;
+	margin-bottom: 1%;
+	border-radius: 5px;
+	background-color: #E41B17;
+}
+
+.form {
+	color: white;
+	text-align:center;
+  margin-left: 2%;
+}
+
+.editForm {
+	color: white;
+	text-align:center;
+  margin-top: 10%;
 }

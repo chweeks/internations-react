@@ -34,9 +34,9 @@ var UsersList = React.createClass({
 
   addUser: function(event) {
     event.preventDefault();
-    var userName = this.refs.newUser.value;
-    var selectedGroup = this.refs.selectedGroup.value;
-    actions.addUser(userName, selectedGroup);
+    var userName = this.refs.newUser;
+    var selectedGroup = this.refs.selectedGroup;
+    actions.addUser(userName.value, selectedGroup.value);
     this.setState({
       newUser: ''
     })
@@ -66,15 +66,20 @@ var UsersList = React.createClass({
         <div>
           <h3>{user.name}</h3>
         </div>
-        <div>{user.groups.map(this.renderGroups)}</div>
-        <button onClick={this.deleteUser.bind(this, user)}>Delete User</button>
+        <div>
+          <h4>Groups:</h4>
+          {user.groups.map(this.renderGroups)}
+        </div>
+        <button className='delete' onClick={this.deleteUser.bind(this, user)}>
+          Delete User
+        </button>
       </div>
     );
   },
 
 	render: function() {
     return(
-      <div>
+      <div className="userList">
         <div className="form">
           <h1>Add New User</h1>
           <form onSubmit={this.addUser}>

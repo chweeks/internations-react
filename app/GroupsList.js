@@ -60,16 +60,19 @@ var GroupsList = React.createClass({
           <h3>{group.name}</h3>
         </div>
         <div className='groupMembers'>
+          <h4>Members:</h4>
           {group.members.map(this.renderGroupMembers)}
         </div>
-        <button onClick={this.deleteGroup.bind(this, group)}>Delete Group</button>
+        <button className='delete'onClick={this.deleteGroup.bind(this, group)}>
+          Delete Group
+        </button>
       </div>
     );
   },
 
 	render: function() {
     return(
-      <div>
+      <div className="groupList">
         <div className="form">
           <h1>Add New Group</h1>
           <form onSubmit={this.addGroup}>

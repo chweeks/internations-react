@@ -2,13 +2,11 @@ var flux = require('flux-react');
 var actions = require('./actions.js');
 
 module.exports = flux.createStore({
-  users: [{id: 1, name:'Chris Weeks', groups: ['InterNations', 'Makers Academy', 'Lancaster University'] },
-          {id: 2, name:'Nathaniel Green', groups: ['Makers Academy', 'Lancaster University'] },
-          {id: 3, name:'Aaron Kendall', groups: ['Makers Academy'] }],
+  users: [{id: 1, name:'Chris Weeks', groups: ['InterNations', 'Makers Academy', 'Lancaster University'] }],
 
   groups: [{id: 1, name: 'InterNations', members: ['Chris Weeks'] },
-           {id: 2, name: 'Makers Academy', members: ['Chris Weeks', 'Nathaniel Green', 'Aaron Kendall'] },
-           {id: 3, name: 'Lancaster University', members: ['Chris Weeks', 'Nathaniel Green'] }],
+           {id: 2, name: 'Makers Academy', members: ['Chris Weeks'] },
+           {id: 3, name: 'Lancaster University', members: ['Chris Weeks'] }],
 
   actions: [
     actions.addUser,
@@ -28,7 +26,7 @@ module.exports = flux.createStore({
   },
 
   getUserByName: function(name){
-     for(var i=0; i < this.groups.length; i++){
+     for(var i=0; i < this.users.length; i++){
        if(this.users[i].name == name){
          return this.users[i]
        }
@@ -65,7 +63,7 @@ module.exports = flux.createStore({
     };
   },
 
-  deleteUserFromGroups: function(user) {
+  deleteUserFromAllGroups: function(user) {
     for(var i=0; i < this.groups.length; i++){
       for(var j=0; j < this.groups[i].members.length; j++){
         if(user.name == this.groups[i].members[j]){
@@ -75,7 +73,7 @@ module.exports = flux.createStore({
     };
   },
 
-  deleteUserFromGroup: function(userName, groupName) {
+  deleteUserFromAGroup: function(userName, groupName) {
     var group = this.getGroupByName(groupName);
     for(var i=0; i < group.members.length; i++){
       if(group.members[i] == userName){
@@ -96,7 +94,7 @@ module.exports = flux.createStore({
   addUser: function(userName, group) {
     if(this.userAlreadyExists(userName)){ return alert('That user already exists') };
     this.groupProvided(group)
-    this.users.push({ id:(this.users.length+1), name: userName, groups: group});
+    this.users.push({ id:(this.users.length+1), name: userName, groups: [group]});
     this.getGroupByName(group).members.push(userName);
     this.emitChange();
   },
@@ -122,14 +120,14 @@ module.exports = flux.createStore({
   },
 
   kickUserFromGroup: function(userName, groupName) {
-    this.deleteUserFromGroup(userName, groupName);
+    this.deleteUserFromAGroup(userName, groupName);
     this.deleteGroupFromUser(userName, groupName);
     this.emitChange();
   },
 
   deleteUser: function(user) {
     this.deleteUserFromUsers(user);
-    this.deleteUserFromGroups(user);
+    this.deleteUserFromAllGroups(user);
     this.emitChange();
   },
 

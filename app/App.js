@@ -7,9 +7,11 @@ var App = React.createClass({
 
 	render: function() {
     return(
-      <div>
-        <UsersList />
-        <GroupsList />
+      <div className="container">
+        <div className="listContainer">
+          <UsersList />
+          <GroupsList />
+        </div>
         <EditGroups />
       </div>
     );

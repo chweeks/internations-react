@@ -67,7 +67,7 @@ var EditGroups = React.createClass({
 
   render: function() {
     return(
-      <div className="form">
+      <div className="editForm">
         <h1>Edit Groups</h1>
         <input type="text" ref="user" placeholder="User Name"
           value={this.state.user} onChange={this.updateUser}/>
@@ -76,8 +76,12 @@ var EditGroups = React.createClass({
           {this.state.groups.map(this.renderGroupDropDown)}
         </select>
         <div>
-          <button onClick={this.addUserToGroup}>Add To Group</button>
-          <button onClick={this.kickUserFromGroup}>Remove From Group</button>
+          <button className="addUserBtn" onClick={this.addUserToGroup}>
+            Add To Group
+          </button>
+          <button className="removeUserBtn" onClick={this.kickUserFromGroup}>
+            Remove From Group
+          </button>
         </div>
       </div>
     );
