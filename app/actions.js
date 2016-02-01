@@ -4,5 +4,6 @@ module.exports = flux.createActions([
   'addUser',
   'addGroup',
   'addUserToGroup',
+  'kickUserFromGroup',
   'deleteUser'
 ]);

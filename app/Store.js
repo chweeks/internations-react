@@ -3,8 +3,8 @@ var actions = require('./actions.js');
 
 module.exports = flux.createStore({
   users: [{id: 1, name:'Chris Weeks', groups: ['InterNations', 'Makers Academy', 'Lancaster University'] },
-          {id: 2, name:'Nathaniel Green', groups: ['InterNations', 'Makers Academy', 'Lancaster University'] },
-          {id: 3, name:'Aaron Kendall', groups: ['InterNations', 'Makers Academy'] }],
+          {id: 2, name:'Nathaniel Green', groups: ['Makers Academy', 'Lancaster University'] },
+          {id: 3, name:'Aaron Kendall', groups: ['Makers Academy'] }],
 
   groups: [{id: 1, name: 'InterNations', members: ['Chris Weeks'] },
            {id: 2, name: 'Makers Academy', members: ['Chris Weeks', 'Nathaniel Green', 'Aaron Kendall'] },
@@ -14,6 +14,7 @@ module.exports = flux.createStore({
     actions.addUser,
     actions.addGroup,
     actions.addUserToGroup,
+    actions.kickUserFromGroup,
     actions.deleteUser
   ],
 
@@ -21,6 +22,14 @@ module.exports = flux.createStore({
      for(var i=0; i < this.groups.length; i++){
        if(this.groups[i].name == name){
          return this.groups[i]
+       }
+     };
+  },
+
+  getUserByName: function(name){
+     for(var i=0; i < this.groups.length; i++){
+       if(this.users[i].name == name){
+         return this.users[i]
        }
      };
   },
@@ -40,37 +49,11 @@ module.exports = flux.createStore({
   },
 
   isAMember: function(userName, group) {
-    var groupObject = this.getGroupByName(group)
-    for(var i=0; i<groupObject.members.length; i++){
-      if(groupObject.members[i] == userName){
+    for(var i=0; i<group.members.length; i++){
+      if(group.members[i] == userName){
         return true
       }
     }
-  },
-
-  addUser: function(userName, group) {
-    if(this.userAlreadyExists(userName)){ return alert('That user already exists') };
-    this.groupProvided(group)
-    this.users.push({ id:(this.users.length+1), name: userName, groups: group});
-    this.getGroupByName(group).members.push(userName);
-    this.emitChange();
-  },
-
-  addUserToGroup: function(userName, group) {
-    this.groupProvided(group);
-    if(this.userAlreadyExists(userName) != true){
-      return alert(userName+' does not exist')
-    };
-    if(this.isAMember(userName, group)){
-      return alert(userName+' is already a member of '+group)
-    };
-    this.getGroupByName(group).members.push(userName);
-    this.emitChange();
-  },
-
-  addGroup: function(group) {
-    this.groups.push({ id:(this.groups.length+1), name: group , members: []});
-    this.emitChange();
   },
 
   deleteUserFromUsers: function(user) {
@@ -89,6 +72,58 @@ module.exports = flux.createStore({
         }
       }
     };
+  },
+
+  deleteUserFromGroup: function(userName, groupName) {
+    var group = this.getGroupByName(groupName);
+    for(var i=0; i < group.members.length; i++){
+      if(group.members[i] == userName){
+        group.members.splice(i,1);
+      }
+    };
+  },
+
+  deleteGroupFromUser: function(userName, groupName) {
+    var user = this.getUserByName(userName);
+    for(var i=0; i < user.groups.length; i++){
+      if(user.groups[i] == groupName){
+        user.groups.splice(i,1);
+      }
+    };
+  },
+
+  addUser: function(userName, group) {
+    if(this.userAlreadyExists(userName)){ return alert('That user already exists') };
+    this.groupProvided(group)
+    this.users.push({ id:(this.users.length+1), name: userName, groups: group});
+    this.getGroupByName(group).members.push(userName);
+    this.emitChange();
+  },
+
+  addGroup: function(group) {
+    this.groups.push({ id:(this.groups.length+1), name: group , members: []});
+    this.emitChange();
+  },
+
+  addUserToGroup: function(userName, groupName) {
+    var group = this.getGroupByName(groupName)
+    var user = this.getUserByName(userName)
+    this.groupProvided(group);
+    if(this.userAlreadyExists(userName) != true){
+      return alert(userName+' does not exist')
+    };
+    if(this.isAMember(userName, group)){
+      return alert(userName+' is already a member of '+group.name)
+    };
+    group.members.push(user.name);
+    user.groups.push(group.name);
+    this.emitChange();
+  },
+
+  kickUserFromGroup: function(userName, groupName) {
+    this.deleteUserFromGroup(userName, groupName);
+    this.deleteGroupFromUser(userName, groupName);
+    this.emitChange();
   },
 
   deleteUser: function(user) {

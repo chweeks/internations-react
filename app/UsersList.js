@@ -66,7 +66,7 @@ var UsersList = React.createClass({
         <div>
           <h3>{user.name}</h3>
         </div>
-        <div>{user.groups}</div>
+        <div>{user.groups.map(this.renderGroups)}</div>
         <button onClick={this.deleteUser.bind(this, user)}>Delete User</button>
       </div>
     );
