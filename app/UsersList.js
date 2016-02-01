@@ -52,11 +52,22 @@ var UsersList = React.createClass({
     );
   },
 
+  renderGroups: function(userGroup, i) {
+    return(
+      <div className='UserGroup' key={i}>
+        {userGroup}
+      </div>
+    );
+  },
+
   renderUsers: function(user) {
     return(
-      <div key={user.id}>
-        {user.name}:{user.groups}
-        <button onClick={this.deleteUser.bind(this, user)}></button>
+      <div className="userContainer" key={user.id}>
+        <div>
+          <h3>{user.name}</h3>
+        </div>
+        <div>{user.groups}</div>
+        <button onClick={this.deleteUser.bind(this, user)}>Delete User</button>
       </div>
     );
   },
@@ -64,16 +75,20 @@ var UsersList = React.createClass({
 	render: function() {
     return(
       <div>
-        <h1>Add New User</h1>
-        <form onSubmit={this.addUser}>
-          <input type="text" ref="newUser" placeholder="User Name"
-            value={this.state.newUser} onChange={this.updateNewUser}/>
-          <select name='groups' ref="selectedGroup" defaultValue="">
-            <option value="">Please select a group...</option>
-            {this.state.groups.map(this.renderGroupDropDown)}
-          </select>
-        </form>
-        {this.state.users.map(this.renderUsers)}
+        <div className="form">
+          <h1>Add New User</h1>
+          <form onSubmit={this.addUser}>
+            <input type="text" ref="newUser" placeholder="User Name"
+              value={this.state.newUser} onChange={this.updateNewUser}/>
+            <select name='groups' ref="selectedGroup" defaultValue="">
+              <option value="">Please select a group...</option>
+              {this.state.groups.map(this.renderGroupDropDown)}
+            </select>
+          </form>
+        </div>
+        <div className="usersContainer">
+          {this.state.users.map(this.renderUsers)}
+        </div>
       </div>
     );
 	}

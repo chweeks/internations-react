@@ -1,6 +1,7 @@
 var React = require('react');
 var UsersList = require('./UsersList.js');
 var GroupsList = require('./GroupsList.js')
+var EditGroups = require('./EditGroups.js')
 
 var App = React.createClass({
 
@@ -9,6 +10,7 @@ var App = React.createClass({
       <div>
         <UsersList />
         <GroupsList />
+        <EditGroups />
       </div>
     );
 	}

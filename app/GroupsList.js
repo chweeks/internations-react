@@ -41,16 +41,23 @@ var GroupsList = React.createClass({
     })
   },
 
-  renderUserDropDown: function(user) {
+  renderGroupMembers: function(groupMember, i) {
     return(
-      <option key={user.id} value={user.name}>{user.name}</option>
+      <div className='groupMember' key={i}>
+        {groupMember}
+      </div>
     );
   },
 
   renderGroups: function(group) {
     return (
-      <div key={group.id}>
-        <span>{group.name}: {group.members}</span>
+      <div className='groupContainer' key={group.id}>
+        <div>
+          <h3>{group.name}</h3>
+        </div>
+        <div className='groupMembers'>
+          {group.members.map(this.renderGroupMembers)}
+        </div>
       </div>
     );
   },
@@ -58,12 +65,16 @@ var GroupsList = React.createClass({
 	render: function() {
     return(
       <div>
-        <h1>Add New Group</h1>
-        <form onSubmit={this.addGroup}>
-          <input type="text" ref="newGroup" placeholder="Group Name"
-            value={this.state.newGroup} onChange={this.updateNewGroup}/>
-        </form>
-        {this.state.groups.map(this.renderGroups)}
+        <div className="form">
+          <h1>Add New Group</h1>
+          <form onSubmit={this.addGroup}>
+            <input type="text" ref="newGroup" placeholder="Group Name"
+              value={this.state.newGroup} onChange={this.updateNewGroup}/>
+          </form>
+        </div>
+        <div className="groupsContainer">
+          {this.state.groups.map(this.renderGroups)}
+        </div>
       </div>
     );
 	}

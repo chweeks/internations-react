@@ -1,3 +1,21 @@
 body {
 	background-color: #EAEAEA;
 }
+
+.form {
+  margin-left: 2%;
+}
+
+.userContainer {
+	margin: 2%;
+  display: inline-block;
+	vertical-align: top;
+	background-color: white;
+}
+
+.groupContainer{
+	margin: 2%;
+  display: inline-block;
+	vertical-align: top;
+	background-color: white;
+}
