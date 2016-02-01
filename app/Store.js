@@ -15,7 +15,8 @@ module.exports = flux.createStore({
     actions.addGroup,
     actions.addUserToGroup,
     actions.kickUserFromGroup,
-    actions.deleteUser
+    actions.deleteUser,
+    actions.deleteGroup
   ],
 
   getGroupByName: function(name){
@@ -130,6 +131,20 @@ module.exports = flux.createStore({
     this.deleteUserFromUsers(user);
     this.deleteUserFromGroups(user);
     this.emitChange();
+  },
+
+  deleteGroup: function(group) {
+    if(group.members.length == 0){
+      for(var i=0; i < this.groups.length; i++){
+        if(group.id == this.groups[i].id){
+          this.groups.splice(i, 1);
+          this.emitChange();
+        }
+      };
+    }
+    else{
+      alert("Can only delete empty groups")
+    }
   },
 
   exports: {

@@ -41,6 +41,10 @@ var GroupsList = React.createClass({
     })
   },
 
+  deleteGroup: function(group) {
+    actions.deleteGroup(group);
+  },
+
   renderGroupMembers: function(groupMember, i) {
     return(
       <div className='groupMember' key={i}>
@@ -58,6 +62,7 @@ var GroupsList = React.createClass({
         <div className='groupMembers'>
           {group.members.map(this.renderGroupMembers)}
         </div>
+        <button onClick={this.deleteGroup.bind(this, group)}>Delete Group</button>
       </div>
     );
   },
