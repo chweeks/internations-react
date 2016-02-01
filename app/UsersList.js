@@ -42,6 +42,10 @@ var UsersList = React.createClass({
     })
   },
 
+  deleteUser: function(user) {
+    actions.deleteUser(user);
+  },
+
   renderGroupDropDown: function(group) {
     return(
       <option key={group.id} value={group.name}>{group.name}</option>
@@ -52,6 +56,7 @@ var UsersList = React.createClass({
     return(
       <div key={user.id}>
         {user.name}:{user.groups}
+        <button onClick={this.deleteUser.bind(this, user)}></button>
       </div>
     );
   },
